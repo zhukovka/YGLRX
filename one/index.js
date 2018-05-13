@@ -1,29 +1,29 @@
-import {initializeVisualizer} from '../visualizer';
-import {Piano} from '../piano';
-import {Observable, Subject, ReplaySubject, from, of, fromEvent} from 'rxjs';
-import {mapTo, mergeAll, concatAll, concatMap, take} from 'rxjs/operators';
-import {timer} from "rxjs";
+import {AudioPlayer} from '../audioPlayer';
+import {CHORDS} from '../piano';
 
-let audioElement = document.getElementById("audio");
-let piano = new Piano(audioElement);
+let canvasElement = document.getElementById("canvas");
+let audioPlayer = new AudioPlayer();
 
-fromEvent(document, 'click')
-    .pipe(take(1), concatMap(() => {
+document.addEventListener('click', (e) => {
+    audioPlayer.visualize(canvasElement);
 
-            initializeVisualizer(document.getElementById("canvas"), audioElement);
+    setTimeout(() => {
+        audioPlayer.play(CHORDS['C']);
 
-            return from([
-                timer(1000).pipe(mapTo('C')),
-                timer(2000).pipe(mapTo('D')),
-                timer(3000).pipe(mapTo('E')),
-                timer(4000).pipe(mapTo('F')),
-                timer(5000).pipe(mapTo('G')),
-                timer(6000).pipe(mapTo('A')),
-                timer(7000).pipe(mapTo('B'))
-            ]).pipe(mergeAll())
-        }
-    ))
-    .subscribe(chord => {
-        console.log(chord);
-        // return piano.play(chord);
-    });
+        setTimeout(() => {
+
+            audioPlayer.play(CHORDS['D']);
+
+            setTimeout(() => {
+
+                audioPlayer.play(CHORDS['E']);
+
+                setTimeout(() => {
+
+                    audioPlayer.play(CHORDS['F']);
+
+                }, Math.random() * 1000 + 1000);
+            }, Math.random() * 1000 + 1000);
+        }, Math.random() * 1000 + 1000);
+    }, Math.random() * 1000 + 1000);
+});

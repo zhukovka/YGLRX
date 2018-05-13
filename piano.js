@@ -11,7 +11,7 @@ import a from './chords2/10A.mp3';
 import bb from './chords2/11A#.mp3'
 import b from './chords2/12B.mp3';
 
-const CHORDS = {
+export const CHORDS = {
     'C': c,
     'D': d,
     'E': e,
@@ -20,14 +20,3 @@ const CHORDS = {
     'A': a,
     'B': b
 };
-
-export class Piano {
-    constructor (...audioElements) {
-        this.audioElements = audioElements;
-    }
-
-    play (chord, i) {
-        this.audioElements[i].src = CHORDS[chord];
-        this.audioElements[i].play();
-    }
-}
