@@ -1,5 +1,5 @@
-import {from, fromEvent, timer, zip} from 'rxjs';
-import {concatMap, repeat, take, tap} from 'rxjs/operators/index';
+import {from, fromEvent, timer, zip, interval} from 'rxjs';
+import {concatMap, repeat, take, tap, mapTo} from 'rxjs/operators/index';
 import {CHORDS} from '../piano';
 import {AudioPlayer} from '../audioPlayer';
 
@@ -13,7 +13,7 @@ fromEvent(document, 'click')
         concatMap(() => {
             audioPlayer.visualize(canvasElement);
 
-            return zip(from(chords), timer(Math.random() * 1000 + 1000, Math.random() * 1000 + 1000), (chord) => chord).pipe(repeat(2))
+            return from(chords).pipe(concatMap(chord => timer(Math.random() * 1000).pipe(mapTo(chord))));
 
         }))
     .subscribe((chord) => {
