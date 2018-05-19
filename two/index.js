@@ -1,23 +1,29 @@
-import {from, fromEvent, timer, zip, interval} from 'rxjs';
-import {concatMap, repeat, take, tap, mapTo} from 'rxjs/operators/index';
-import {CHORDS} from '../piano';
-import {AudioPlayer} from '../audioPlayer';
+import {AudioPlayer} from '../audioPlayer.js';
+
+import {from, fromEvent, interval, zip} from 'rxjs';
+import {concatMap} from 'rxjs/operators';
 
 let canvasElement = document.getElementById("canvas");
 let audioPlayer = new AudioPlayer();
+audioPlayer.visualize(canvasElement);
+audioPlayer.loadNotes('G3', 'D_3', 'A_3');
+let beat = 500;
+let q = beat / 8;
+const c = beat / 2;
+const march = ['G3', 'G3', 'G3', 'D_3', 'A_3', 'G3', 'D_3', 'A_3', 'G3'];
+const time = [c, c, c, c, q, c, c, q, beat];
+// const march = ['A_3'];
+// const time = [q];
 
-let chords = ['C'];
-//
-// let chords = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
 fromEvent(document, 'click')
-    .pipe(take(1),
+    .pipe(
         concatMap(() => {
-            audioPlayer.visualize(canvasElement);
-            //only this to slide
-            return from(chords).pipe(concatMap(chord => timer(Math.random() * 1000 + 1000).pipe(mapTo(chord))));
-
+            let march$ = from(march);
+            let time$ = from(time);
+            console.log("kuku");
+            return zip(march$, time$, interval(beat));
         }))
-    .subscribe((chord) => {
-        audioPlayer.play(CHORDS[chord]);
-        return console.log(chord);
+    .subscribe((zipped) => {
+        let [note, ms] = zipped;
+        audioPlayer.play(note, 0, ms / 1000);
     });

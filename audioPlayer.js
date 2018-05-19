@@ -9,6 +9,7 @@ export class AudioPlayer {
         this.analyser = this.audioCtx.createAnalyser();
         this.analyser.fftSize = 1024; // change this to more or less triangles
         this.sources = {};
+        console.log("player");
     }
 
     loadNotes (...notes) {
@@ -76,7 +77,9 @@ export class AudioPlayer {
         this.analyser.connect(this.gainNode);
         this.gainNode.connect(this.audioCtx.destination);
         this.gainNode.gain.value = 1.0;
-        this.gainNode.gain.setTargetAtTime(0, this.audioCtx.currentTime + (duration / 4), 0.5);
+        if (duration > 0) {
+            this.gainNode.gain.setTargetAtTime(0, this.audioCtx.currentTime + (duration / 4), 0.5);
+        }
         source.start(0, offset, duration);
     }
 }

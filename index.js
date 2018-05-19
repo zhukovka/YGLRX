@@ -1,14 +1,12 @@
 import {AudioPlayer} from './audioPlayer';
-import {NOTES} from './piano';
-
 let canvasElement = document.getElementById("canvas");
 let audioPlayer = new AudioPlayer();
-
+audioPlayer.visualize(canvasElement);
+audioPlayer.loadNotes('G3', 'D_3', 'A_3');
 document.addEventListener('click', (e) => {
-    audioPlayer.visualize(canvasElement);
-    setTimeout(() => audioPlayer.play(NOTES['D_3']), 1150);
-    setTimeout(() => audioPlayer.play(NOTES['G3']), 42);
-    setTimeout(() => audioPlayer.play(NOTES['A_3']), 2300);
-    setTimeout(() => audioPlayer.play(NOTES['G3']), 574);
+    setTimeout(() => audioPlayer.play('D_3'), 1150);
+    setTimeout(() => audioPlayer.play('G3'), 42);
+    setTimeout(() => audioPlayer.play('A_3'), 2300);
+    setTimeout(() => audioPlayer.play('G3'), 574);
 });
 
