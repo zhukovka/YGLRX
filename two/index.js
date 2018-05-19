@@ -3,20 +3,22 @@ import {AudioPlayer} from '../audioPlayer.js';
 import {from, fromEvent, timer, zip} from 'rxjs';
 import {concatMap} from 'rxjs/operators';
 
-let canvasElement = document.getElementById("canvas");
-let audioPlayer = new AudioPlayer();
+const canvasElement = document.getElementById("canvas");
+const audioPlayer = new AudioPlayer();
 audioPlayer.visualize(canvasElement);
 audioPlayer.loadNotes('G3', 'D_3', 'A_3');
-let beat = 500;
-let q = beat / 8;
-const c = beat / 2;
+const one = 500;
+const one2 = one / 2;
+const one4 = one / 4;
+const one8 = one / 8;
+const two3 = 2 * one / 3;
 const march = ['G3', 'G3', 'G3', 'D_3', 'A_3', 'G3', 'D_3', 'A_3', 'G3'];
-const duration = [c, c, c, c, q, c, c, q, beat];
-const length = [0, beat, beat, beat, 2 * beat / 3, beat / 4, beat, 2 * beat / 3, beat / 4, 0];
-let march$ = from(march);
-let duration$ = from(duration);
-let length$ = from(length);
-let midi$ = zip(march$, duration$, length$.pipe(concatMap(ms => timer(ms))));
+const duration = [one2, one2, one2, one2, one8, one2, one2, one8, one];
+const length = [0, one, one, one, two3, one4, one, two3, one4, 0];
+const march$ = from(march);
+const duration$ = from(duration);
+const length$ = from(length);
+const midi$ = zip(march$, duration$, length$.pipe(concatMap(ms => timer(ms))));
 
 fromEvent(document, 'click')
     .pipe(concatMap(() => midi$))
