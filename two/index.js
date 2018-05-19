@@ -1,7 +1,7 @@
 import {AudioPlayer} from '../audioPlayer.js';
 
-import {from, fromEvent, interval, zip} from 'rxjs';
-import {concatMap} from 'rxjs/operators';
+import {from, fromEvent, timer, zip} from 'rxjs';
+import {concatMap, mapTo} from 'rxjs/operators';
 
 let canvasElement = document.getElementById("canvas");
 let audioPlayer = new AudioPlayer();
@@ -11,17 +11,18 @@ let beat = 500;
 let q = beat / 8;
 const c = beat / 2;
 const march = ['G3', 'G3', 'G3', 'D_3', 'A_3', 'G3', 'D_3', 'A_3', 'G3'];
-const time = [c, c, c, c, q, c, c, q, beat];
-// const march = ['A_3'];
-// const time = [q];
+const duration = [c, c, c, c, q, c, c, q, beat];
+const length = [0, beat, beat, beat, 2 * beat / 3, beat / 4, beat, 2 * beat / 3, beat / 4, 0];
 
 fromEvent(document, 'click')
     .pipe(
         concatMap(() => {
             let march$ = from(march);
-            let time$ = from(time);
-            console.log("kuku");
-            return zip(march$, time$, interval(beat));
+            let duration$ = from(duration);
+            let length$ = from(length);
+            return zip(march$, duration$, length$.pipe(concatMap(ms => {
+                return timer(ms);
+            })));
         }))
     .subscribe((zipped) => {
         let [note, ms] = zipped;
