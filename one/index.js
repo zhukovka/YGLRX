@@ -1,29 +1,27 @@
 import {AudioPlayer} from '../audioPlayer';
-import {CHORDS} from '../piano';
 
 let canvasElement = document.getElementById("canvas");
 let audioPlayer = new AudioPlayer();
-
+const timeUnit = 1000;
+audioPlayer.visualize(canvasElement);
+audioPlayer.loadNotes('G3', 'D_3');
 document.addEventListener('click', (e) => {
-    audioPlayer.visualize(canvasElement);
 
     setTimeout(() => {
-        audioPlayer.play(CHORDS['C']);
+
+        audioPlayer.play('G3', 0, 1/2);
 
         setTimeout(() => {
 
-            audioPlayer.play(CHORDS['D']);
-
+            audioPlayer.play('G3', 0, 1/2);
             setTimeout(() => {
 
-                audioPlayer.play(CHORDS['E']);
-
+                audioPlayer.play('G3', 0, 1/2);
                 setTimeout(() => {
 
-                    audioPlayer.play(CHORDS['F']);
-
-                }, Math.random() * 1000 + 1000);
-            }, Math.random() * 1000 + 1000);
-        }, Math.random() * 1000 + 1000);
-    }, Math.random() * 1000 + 1000);
+                    audioPlayer.play('D_3', 0, 1/2);
+                }, timeUnit);
+            }, timeUnit);
+        }, timeUnit);
+    }, timeUnit);
 });

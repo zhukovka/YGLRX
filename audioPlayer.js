@@ -1,24 +1,40 @@
 import {createAudioContext, createSource, init} from './triangles';
+import {from, fromEvent, zip, timer, of} from 'rxjs';
+import {switchMap, concatMap, flatMap, map} from 'rxjs/operators';
+import {NOTES} from './piano';
 
 export class AudioPlayer {
     constructor () {
-        this.audioElements = [];
-        this.audioElements.push(new Audio());
-        this.audioElements.push(new Audio());
-        this.currentAudio = -1;
+        this.audioCtx = new (window.AudioContext || window.webkitAudioContext);
+        this.gainNode = this.audioCtx.createGain();
+        this.sources = {};
+    }
+
+    loadNotes (...notes) {
+        let source = from(notes);
+        zip(source, source
+            .pipe(map(note => NOTES[note]),
+                flatMap(url =>
+                    fetch(url)
+                        .then(resp => resp.arrayBuffer()
+                            .then(buffer => this.audioCtx.decodeAudioData(buffer))))
+            ))
+            .subscribe(resp => {
+                this.sources[resp[0]] = resp[1];
+            });
     }
 
     visualize (canvasElement) {
-        init(canvasElement);
-        createAudioContext();
-        for (let audio of this.audioElements) {
-            createSource(audio);
-        }
+        this.canvasCtx = canvasElement.getContext('2d');
+        canvasElement.width = canvasElement.offsetWidth;
+        canvasElement.height = canvasElement.offsetHeight;
     }
 
-    play (src) {
-        this.currentAudio = (this.currentAudio + 1) % this.audioElements.length;
-        this.audioElements[this.currentAudio].src = src;
-        this.audioElements[this.currentAudio].play();
+    play (note, offset, duration) {
+        let source = this.audioCtx.createBufferSource();
+        source.buffer = this.sources[note];
+        source.connect(this.gainNode);
+        this.gainNode.connect(this.audioCtx.destination);
+        this.gainNode.start(0, offset, duration);
     }
 }

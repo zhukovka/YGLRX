@@ -10,6 +10,9 @@ import ab from './chords2/9G#.mp3';
 import a from './chords2/10A.mp3';
 import bb from './chords2/11A#.mp3'
 import b from './chords2/12B.mp3';
+import Ab3 from './march/A_3.mp3';
+import G3 from './march/G3.mp3';
+import Db3 from './march/D_3.mp3';
 
 export const CHORDS = {
     'C': c,
@@ -19,4 +22,10 @@ export const CHORDS = {
     'G': g,
     'A': a,
     'B': b
+};
+
+export const NOTES = {
+    'A_3': Ab3,
+    'G3': G3,
+    'D_3': Db3
 };

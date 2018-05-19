@@ -6,14 +6,15 @@ import {AudioPlayer} from '../audioPlayer';
 let canvasElement = document.getElementById("canvas");
 let audioPlayer = new AudioPlayer();
 
-let chords = ['C', 'D'];
+let chords = ['C'];
+//
 // let chords = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
 fromEvent(document, 'click')
     .pipe(take(1),
         concatMap(() => {
             audioPlayer.visualize(canvasElement);
-
-            return from(chords).pipe(concatMap(chord => timer(Math.random() * 1000).pipe(mapTo(chord))));
+            //only this to slide
+            return from(chords).pipe(concatMap(chord => timer(Math.random() * 1000 + 1000).pipe(mapTo(chord))));
 
         }))
     .subscribe((chord) => {
