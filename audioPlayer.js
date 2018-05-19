@@ -1,6 +1,5 @@
-import {createAudioContext, createSource, init} from './triangles';
-import {from, fromEvent, zip, timer, of} from 'rxjs';
-import {switchMap, concatMap, flatMap, map} from 'rxjs/operators';
+import {from, zip} from 'rxjs';
+import {flatMap, map} from 'rxjs/operators';
 import {NOTES} from './piano';
 
 export class AudioPlayer {
@@ -34,7 +33,9 @@ export class AudioPlayer {
         let source = this.audioCtx.createBufferSource();
         source.buffer = this.sources[note];
         source.connect(this.gainNode);
+        this.gainNode.gain.value = 1.0;
         this.gainNode.connect(this.audioCtx.destination);
-        this.gainNode.start(0, offset, duration);
+        this.gainNode.gain.setTargetAtTime(0, this.audioCtx.currentTime + (duration / 4), 0.5);
+        source.start(0, offset, duration);
     }
 }
