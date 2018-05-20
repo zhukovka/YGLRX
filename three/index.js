@@ -1,21 +1,26 @@
-import {initializeVisualizer} from '../visualizer';
-import {Piano} from '../piano';
-import {from, fromEvent, zip, timer, of} from 'rxjs';
-import {startWith} from 'rxjs/operators';
-import {concatMap, take, repeat} from 'rxjs/operators/index';
+let currentSlide = 0;
 
-let audioElement = document.getElementById("audio");
-let piano = new Piano(audioElement);
-let chords = ['C', 'D', 'E', 'F', 'G', 'A', 'B'];
-fromEvent(document, 'click')
-    .pipe(take(1),
-        concatMap(() => {
-            initializeVisualizer(document.getElementById("canvas"), audioElement);
+const slidesContainer = document.getElementById("slidesContainer");
+const slides = slidesContainer.querySelectorAll(".slide");
 
-            return zip(from(chords), timer(500, 500), (chord) => chord).pipe(repeat(2))
+function switchSlide (to) {
+    slides[currentSlide].style.display = "none";
+    currentSlide = to;
+    slides[to].removeAttribute("style");
+}
 
-        }))
-    .subscribe((chord) => {
-        piano.play(chord);
-        return console.log(chord);
-    });
+document.addEventListener("keydown", (e) => {
+    console.log(e.code);
+    if (e.code === "ArrowRight") {
+        let to = Math.min(currentSlide + 1, slides.length - 1);
+        switchSlide(to);
+    }
+    if (e.code === "ArrowLeft") {
+        let to = Math.max(currentSlide - 1, 0);
+        switchSlide(to);
+    }
+    if (e.code === "ArrowUp") {
+        switchSlide(currentSlide);
+    }
+
+});

@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>YGLRX Two</title>
+    <title>YGLRX</title>
     <link rel="stylesheet" href="../style.css">
     <link rel="stylesheet" href="../highlight/styles/default.css">
     <link rel="stylesheet" href="../highlight/styles/vs.css">
@@ -10,17 +10,32 @@
     <script>hljs.initHighlightingOnLoad();</script>
 </head>
 <body>
+
 <div class="codeContainer flex flex-center" id="codeContainer">
 <pre class="codeSample flex flex-center">
-    <code class="hljs js" id="code">
-zip(notes$, timeMs$.concatMap(ms => timer(ms)))
+    <code class="hljs js" id="code0">
+setTimeout(doSmth, 42);
     </code>
 </pre>
+    <pre class="codeSample flex flex-center" style="display: none"><code class="hljs js" id="code1">
+setTimeout(doSmth, 42);
+setTimeout(doSmth, 142);
+setTimeout(doSmth, 42);
+setTimeout(doSmth, 242);
+    </code></pre>
+    <pre class="codeSample flex flex-center" style="display: none"><code class="hljs js" id="code2">
+setTimeout(() => play('D_3'), 42);
+setTimeout(() => play('G3'), 142);
+setTimeout(() => play('A_3'), 42);
+setTimeout(() => play('G3'), 242);
+    </code></pre>
 </div>
 <div class="canvasContainer" style="display: none" id="canvasContainer">
     <canvas id="canvas"></canvas>
 </div>
-<a href="../three/index.html"></a>
+
+<a href="../one/index.html"></a>
+
 <script src="./index.js"></script>
 </body>
 </html>

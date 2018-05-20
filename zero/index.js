@@ -13,8 +13,6 @@ audioPlayer.loadNotes('G3', 'D_3', 'A_3');
 const slides = codeContainer.querySelectorAll('pre');
 
 function switchSlide (to) {
-    canvasContainer.style.display = "none";
-    codeContainer.removeAttribute("style");
     slides[currentSlide].style.display = "none";
     currentSlide = to;
     slides[to].removeAttribute("style");
@@ -30,28 +28,19 @@ document.addEventListener("keydown", (e) => {
         let to = Math.max(currentSlide - 1, 0);
         switchSlide(to);
     }
-    if (e.code === "ArrowUp") {
-        switchSlide(currentSlide);
-    }
 
     if (e.code === "Space") {
         codeContainer.style.display = "none";
-        canvasContainer.removeAttribute("style");
+        canvasContainer.style.display = "block";
         audioPlayer.visualize(canvasElement);
-        setTimeout(() => {
-            audioPlayer.play('G3');
-            setTimeout(() => {
-                audioPlayer.play('A_3');
-                setTimeout(() => {
-                    audioPlayer.play('G3');
-                    setTimeout(() => {
-                        audioPlayer.play('D_3');
-                    }, 450);
-                }, 642);
-            }, 800);
-        }, 574);
+        setTimeout(() => audioPlayer.play('D_3'), 42);
+        setTimeout(() => audioPlayer.play('G3'), 142);
+        setTimeout(() => audioPlayer.play('A_3'), 42);
+        setTimeout(() => audioPlayer.play('G3'), 242);
     }
     if (e.code === "Enter") {
-        open("/two/index.html", "_self");
+        open("/one/index.html", "_self");
     }
 });
+
+

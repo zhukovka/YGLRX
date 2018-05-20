@@ -1,12 +1,17 @@
-import {AudioPlayer} from '../audioPlayer.js';
-
+import {AudioPlayer} from '../audioPlayer';
 import {from, fromEvent, timer, zip} from 'rxjs';
 import {concatMap} from 'rxjs/operators';
 
+const canvasContainer = document.getElementById("canvasContainer");
+const codeContainer = document.getElementById("codeContainer");
+const codeBlock = document.getElementById("code");
+
 const canvasElement = document.getElementById("canvas");
 const audioPlayer = new AudioPlayer();
-audioPlayer.visualize(canvasElement);
+let currentSlide = -1;
+
 audioPlayer.loadNotes('G3', 'D_3', 'A_3');
+
 const one = 500;
 const one2 = one / 2;
 const one4 = one / 4;
@@ -20,9 +25,23 @@ const duration$ = from(duration);
 const length$ = from(length);
 const midi$ = zip(march$, duration$, length$.pipe(concatMap(ms => timer(ms))));
 
-fromEvent(document, 'click')
-    .pipe(concatMap(() => midi$))
-    .subscribe((zipped) => {
-        let [note, ms] = zipped;
-        audioPlayer.play(note, 0, ms / 1000);
-    });
+document.addEventListener("keydown", (e) => {
+    if (e.code === "ArrowRight") {
+        codeContainer.removeAttribute("style");
+        canvasContainer.style.display = "none";
+    }
+    if (e.code === "Space") {
+        codeContainer.style.display = "none";
+        canvasContainer.removeAttribute("style");
+        currentSlide = -1;
+        audioPlayer.visualize(canvasElement);
+        midi$.subscribe((zipped) => {
+            let [note, ms] = zipped;
+            audioPlayer.play(note, 0, ms / 1000);
+        })
+
+    }
+    if (e.code === "Enter") {
+        open("/three/index.html", "_self");
+    }
+});
