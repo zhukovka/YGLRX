@@ -1,6 +1,6 @@
 document.addEventListener('keypress', e => {
     console.log('press', e);
     if (e.code === "Enter") {
-        open("/zero/index.html","_self");
+        open("/intro/index.html","_self");
     }
 });
