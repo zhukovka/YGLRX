@@ -39,18 +39,14 @@
     </section>
     <pre class="codeSample slide flex flex-center" style="display: none">
     <code class="hljs js">
-(new Promise(resolve => {
-    play('G3');
-    setTimeout(resolve, 42)
-}))
-    .then(_ => new Promise(resolve => {
-        play('A_3');
-        setTimeout(resolve, 142)
-    }))
-    .then(_ => new Promise(resolve => {
-        play('G3');
-        setTimeout(resolve, 42)
-    }));
+function playP(time, note) {
+    play(note);
+    return Promise.delay(time)
+}
+
+playP(42, 'G3')
+    .then(() => playP(142, 'A_3'))
+    .then(() => playP(42, 'D_3'));
     </code>
     </pre>
     <pre class="codeSample slide flex flex-center" style="display: none">
