@@ -33,10 +33,10 @@ document.addEventListener("keydown", (e) => {
         codeContainer.style.display = "none";
         canvasContainer.style.display = "block";
         audioPlayer.visualize(canvasElement);
-        setTimeout(() => audioPlayer.play('D_3'), 42);
-        setTimeout(() => audioPlayer.play('G3'), 142);
-        setTimeout(() => audioPlayer.play('A_3'), 42);
-        setTimeout(() => audioPlayer.play('G3'), 242);
+        setTimeout(() => audioPlayer.play('D_3'), 1142);
+        setTimeout(() => audioPlayer.play('G3'), 542);
+        setTimeout(() => audioPlayer.play('A_3'), 442);
+        setTimeout(() => audioPlayer.play('G3'), 342);
     }
     if (e.code === "Enter") {
         open("/one/index.html", "_self");

@@ -46,10 +46,10 @@ document.addEventListener("keydown", (e) => {
                     audioPlayer.play('G3');
                     setTimeout(() => {
                         audioPlayer.play('D_3');
-                    }, 242);
-                }, 42);
-            }, 142);
-        }, 42);
+                    }, 542);
+                }, 642);
+            }, 842);
+        }, 1142);
     }
     if (e.code === "Enter") {
         open("/two/index.html", "_self");
