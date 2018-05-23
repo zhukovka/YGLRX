@@ -1,7 +1,7 @@
 import {AudioPlayer} from '../audioPlayer';
 import {from, fromEvent, timer, zip} from 'rxjs';
 import {concatMap} from 'rxjs/operators';
-
+const next = document.getElementById("next");
 const canvasContainer = document.getElementById("canvasContainer");
 const codeContainer = document.getElementById("codeContainer");
 const codeBlock = document.getElementById("code");
@@ -42,6 +42,6 @@ document.addEventListener("keydown", (e) => {
 
     }
     if (e.code === "Enter") {
-        open("three/index.html", "_self");
+        open(next.href, "_self");
     }
 });

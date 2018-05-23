@@ -98,7 +98,7 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   // Override the current require with this new one
   return newRequire;
-})({25:[function(require,module,exports) {
+})({73:[function(require,module,exports) {
 var currentSlide = 0;
 
 var slidesContainer = document.getElementById("slidesContainer");
@@ -127,5 +127,5 @@ document.addEventListener("keydown", function (e) {
         open("zero/index.html", "_self");
     }
 });
-},{}]},{},[25], null)
-//# sourceMappingURL=three.7371af6a.map
+},{}]},{},[73], null)
+//# sourceMappingURL=/three.7371af6a.map

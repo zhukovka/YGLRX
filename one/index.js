@@ -3,7 +3,7 @@ import {AudioPlayer} from '../audioPlayer';
 const canvasContainer = document.getElementById("canvasContainer");
 const codeContainer = document.getElementById("codeContainer");
 const codeBlock = document.getElementById("code");
-
+const next = document.getElementById("next");
 const canvasElement = document.getElementById("canvas");
 const audioPlayer = new AudioPlayer();
 let currentSlide = 0;
@@ -52,6 +52,6 @@ document.addEventListener("keydown", (e) => {
         }, 1142);
     }
     if (e.code === "Enter") {
-        open("two/index.html", "_self");
+        open(next.href, "_self");
     }
 });

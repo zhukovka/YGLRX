@@ -11,7 +11,7 @@ let currentSlide = 0;
 audioPlayer.loadNotes('G3', 'D_3', 'A_3');
 
 const slides = codeContainer.querySelectorAll('pre');
-
+const next = document.getElementById("next");
 function switchSlide (to) {
     slides[currentSlide].style.display = "none";
     currentSlide = to;
@@ -39,7 +39,7 @@ document.addEventListener("keydown", (e) => {
         setTimeout(() => audioPlayer.play('G3'), 342);
     }
     if (e.code === "Enter") {
-        open("one/index.html", "_self");
+        open(next.href, "_self");
     }
 });
 

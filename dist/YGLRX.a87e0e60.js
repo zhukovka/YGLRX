@@ -98,12 +98,12 @@ parcelRequire = (function (modules, cache, entry, globalName) {
 
   // Override the current require with this new one
   return newRequire;
-})({3:[function(require,module,exports) {
+})({7:[function(require,module,exports) {
 document.addEventListener('keypress', function (e) {
     console.log('press', e);
     if (e.code === "Enter") {
         open("intro/index.html", "_self");
     }
 });
-},{}]},{},[3], null)
-//# sourceMappingURL=YGLRX.a87e0e60.map
+},{}]},{},[7], null)
+//# sourceMappingURL=/YGLRX.a87e0e60.map

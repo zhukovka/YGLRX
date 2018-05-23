@@ -2,7 +2,7 @@ let currentSlide = 0;
 
 const slidesContainer = document.getElementById("slidesContainer");
 const slides = slidesContainer.querySelectorAll(".slide");
-
+const next = document.getElementById("next");
 function switchSlide (to) {
     slides[currentSlide].style.display = "none";
     currentSlide = to;
@@ -23,6 +23,6 @@ document.addEventListener("keydown", (e) => {
         switchSlide(currentSlide);
     }
     if (e.code === "Enter") {
-        open("zero/index.html", "_self");
+        open(next.href,"_self");
     }
 });
