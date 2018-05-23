@@ -10,7 +10,7 @@ let currentSlide = 0;
 
 audioPlayer.loadNotes('G3', 'D_3', 'A_3');
 
-const slides = codeContainer.querySelectorAll('pre');
+const slides = codeContainer.querySelectorAll('.slide');
 
 function switchSlide (to) {
     canvasContainer.style.display = "none";
@@ -46,10 +46,10 @@ document.addEventListener("keydown", (e) => {
                     audioPlayer.play('G3');
                     setTimeout(() => {
                         audioPlayer.play('D_3');
-                    }, 450);
+                    }, 542);
                 }, 642);
-            }, 800);
-        }, 574);
+            }, 842);
+        }, 1142);
     }
     if (e.code === "Enter") {
         open("/two/index.html", "_self");

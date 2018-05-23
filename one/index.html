@@ -11,14 +11,14 @@
 </head>
 <body>
 <div class="codeContainer flex flex-center" id="codeContainer">
-<pre class="codeSample flex flex-center">
+<pre class="codeSample slide flex flex-center">
     <code class="hljs js" id="code0">
     play -> wait for 42 ms ->
     play -> wait for 142 ms ->
     play -> ...
     </code>
 </pre>
-    <pre class="codeSample flex flex-center" style="display: none">
+    <pre class="codeSample slide flex flex-center" style="display: none">
     <code class="hljs js" id="code1">
     setTimeout(() => {
         play('G3');
@@ -33,8 +33,23 @@
         }, 142);
     }, 42);
     </code>
-</pre>
-    <pre class="codeSample flex flex-center" style="display: none">
+    </pre>
+    <section class="center slide" style="display: none">
+        <h1>Promise?</h1>
+    </section>
+    <pre class="codeSample slide flex flex-center" style="display: none">
+    <code class="hljs js">
+function playP(time, note) {
+    play(note);
+    return Promise.delay(time)
+}
+
+playP(42, 'G3')
+    .then(() => playP(142, 'A_3'))
+    .then(() => playP(42, 'D_3'));
+    </code>
+    </pre>
+    <pre class="codeSample slide flex flex-center" style="display: none">
     <code class="hljs js" id="code2">
     notes  = ['G3', 'D_3', 'A_3', 'G3', ...]
     timeMs = [ 0.0,  62.5, 250.0, 62.5, ...]
