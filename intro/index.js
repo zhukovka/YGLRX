@@ -23,6 +23,6 @@ document.addEventListener("keydown", (e) => {
         switchSlide(currentSlide);
     }
     if (e.code === "Enter") {
-        open("/three/index.html", "_self");
+        open("three/index.html", "_self");
     }
 });

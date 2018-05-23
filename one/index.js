@@ -52,6 +52,6 @@ document.addEventListener("keydown", (e) => {
         }, 1142);
     }
     if (e.code === "Enter") {
-        open("/two/index.html", "_self");
+        open("two/index.html", "_self");
     }
 });

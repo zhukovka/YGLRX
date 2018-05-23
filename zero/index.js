@@ -39,7 +39,7 @@ document.addEventListener("keydown", (e) => {
         setTimeout(() => audioPlayer.play('G3'), 342);
     }
     if (e.code === "Enter") {
-        open("/one/index.html", "_self");
+        open("one/index.html", "_self");
     }
 });
 
